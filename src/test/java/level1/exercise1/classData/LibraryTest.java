@@ -24,7 +24,7 @@ class LibraryTest {
     }
 
     @Test
-    void addBook() {
+    void shouldAddBookSuccessfully_whenNewBookIsAdded() {
         library.addBook(new Book("The Book 1 test"));
         assertEquals(4, library.recoveryBooks().size(), "The library should contain 4 books after adding a new one");
 
@@ -39,7 +39,7 @@ class LibraryTest {
     }
 
     @Test
-    void testGetBooksEspecific() {
+    void shouldReturnCorrectBook_whenGettingBookByIndex() {
         Book bookIndex = library.getBookByIndex(1);
         boolean found = false;
         if(bookIndex.getName().equalsIgnoreCase("The Book 2")) {
@@ -49,7 +49,7 @@ class LibraryTest {
     }
 
     @Test
-    void testBooksDuplicated(){
+    void shouldNotContainDuplicateBooks_whenBooksAreAdded(){
         boolean isDuplicate = false;
         for (int i = 0; i<library.recoveryBooks().size();i++){
             for (int j = i+1;j<library.recoveryBooks().size();j++){
@@ -61,7 +61,7 @@ class LibraryTest {
         assertFalse(isDuplicate, "The book 'The Book test duplicated' should not be in the collection");
     }
     @Test
-    void getBookByIndex() {
+    void shouldReturnCorrectBookByIndex_whenIndexIsValid() {
         Book expectedBook = new Book("The Book 2");
         Book recoveredBook = library.getBookByIndex(1);
         assertEquals(expectedBook.getName(), recoveredBook.getName(), "The book expected is: " + expectedBook.getName() + " but was: " + recoveredBook.getName());
@@ -69,7 +69,7 @@ class LibraryTest {
     }
 
     @Test
-    void addBookInPosition() {
+    void shouldInsertBookAtSpecificPosition_whenValidIndexIsProvided() {
         Book newBook = new Book("Book in 1");
         library.addBookInPosition(newBook, 1);
         Book recoveredBook = library.getBookByIndex(1);
@@ -77,7 +77,7 @@ class LibraryTest {
     }
 
     @Test
-    void removeBook() {
+    void shouldRemoveBookSuccessfully_whenBookExists() {
         int sizeInitial = library.recoveryBooks().size();
         boolean isReduced = false;
 
@@ -90,7 +90,7 @@ class LibraryTest {
     }
 
     @Test
-    void checkOrderList(){
+    void shouldSortBooksAlphabetically_whenBooksAreSorted(){
         library.addBook(new Book("The Book Z"));
         library.addBook(new Book("The Book A"));
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ObjectEmptyTest {
     @Test
-    void objectIsEmpty(){
+    void shouldBeEmpty_whenOptionalIsEmpty(){
         Optional<String> emptyOptional = Optional.empty();
 
         Assertions.assertThat(emptyOptional).withFailMessage("The object is not empty").isEmpty();

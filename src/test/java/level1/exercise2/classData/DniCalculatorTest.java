@@ -22,7 +22,7 @@ class DniCalculatorTest {
     })
 
 
-    void calculateDniLetter(int dni, String expectedLetter) {
+    void calculateLetter_returnsCorrectLetter_whenValidDniProvided(int dni, String expectedLetter) {
         DniCalculator dniCalculator = new DniCalculator(dni);
         String letter = dniCalculator.calculateLetter();
         assertEquals(expectedLetter, letter,

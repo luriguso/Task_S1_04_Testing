@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ArrayIndexOutOfBoundsExceptionTest {
 
     @Test
-    void ArrayIndexOutOfBoundsException(){
+    void shouldThrowArrayIndexOutOfBoundsException_whenTriggerOutOfBoundsIsCalled(){
         Classroom classroom = new  Classroom();
 
         assertThrows(ArrayIndexOutOfBoundsException.class, classroom::triggerOutOfBounds, "Expected ArrayIndexOutOfBoundsException to be thrown");

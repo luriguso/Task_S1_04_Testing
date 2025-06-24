@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 public class AssertTest {
     @Test
-    void assertTwoEqualNumbers(){
+    void isEqualTo_returnsTrue_whenTwoIntegersAreEqual(){
         int numero1 = 10;
         int numero2 = 10;
         assertThat(numero1).isEqualTo(numero2);
@@ -12,7 +12,7 @@ public class AssertTest {
     }
 
     @Test
-    public void asserted_demonstrated_the_value_two_common_objects_is_equal_notequalityTest(){
+    public void isNotEqualTo_returnsTrue_whenTwoDifferentIntegersAreCompared(){
         Integer day = 25;
         Integer day1 = 29;
 
@@ -22,7 +22,7 @@ public class AssertTest {
 
     }
     @Test
-    public void intEqualityTest(){
+    public void integerEqualityAssertion_passes_whenValuesAreEqual(){
         int summer = 10;
         int summer1 = 10;
 
@@ -30,7 +30,7 @@ public class AssertTest {
         System.out.println("The test passed: both values are equal");
     }
     @Test
-    public void intNotEqualityTest(){
+    public void integerInequalityAssertion_passes_whenValuesAreNotEqual(){
         int winter = 56;
         int winter1 = 32;
 

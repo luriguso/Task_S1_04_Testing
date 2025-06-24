@@ -23,22 +23,22 @@ class ShoppingCarTest {
     }
 
     @Test
-    void shouldKeepInsertionOrder(){
+    void shouldMaintainInsertionOrderOfSmartphones(){
         Assertions.assertThat(shoppingCar.getSmartphones()).extracting(Smartphone::getModel).withFailMessage("does not maintain insertion order").containsExactly("S22 Ultra", "P30", "14 Pro Max", "14 Plus");
     }
 
     @Test
-    void shouldContainObjectsInAnyOrder(){
+    void shouldContainAllInsertedSmartphonesInAnyOrder(){
         Assertions.assertThat(shoppingCar.getSmartphones()).extracting(Smartphone::getModel).withFailMessage("does not contain the inserted objects").containsExactlyInAnyOrder("S22 Ultra", "14 Plus", "P30", "14 Pro Max");
     }
 
     @Test
-    void shouldContainObjectOnlyOneTime(){
+    void shouldContainSmartphoneOnlyOnce(){
         Assertions.assertThat(shoppingCar.getSmartphones()).extracting(Smartphone::getModel).withFailMessage("Contain more to one").containsOnlyOnce("14 Plus");
     }
 
     @Test
-    void shouldNotContainObject(){
+    void shouldNotContainNonInsertedSmartphone(){
         Assertions.assertThat(shoppingCar.getSmartphones()).extracting(Smartphone::getModel).withFailMessage("The smartphone exists").doesNotContain("15 Pro Max");
     }
 }

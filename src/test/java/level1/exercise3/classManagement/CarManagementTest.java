@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarManagementTest {
 
     @Test
-    void triggerOutOfBounds() {
+    void triggerOutOfBounds_throwsArrayIndexOutOfBoundsException() {
         CarManagement carManagement = new CarManagement();
         assertThrows(ArrayIndexOutOfBoundsException.class, carManagement::triggerOutOfBounds, "Expected ArrayIndexOutOfBoundsException to be thrown");
     }
