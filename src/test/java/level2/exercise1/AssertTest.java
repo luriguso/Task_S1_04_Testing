@@ -8,7 +8,6 @@ public class AssertTest {
         int numero1 = 10;
         int numero2 = 10;
         assertThat(numero1).isEqualTo(numero2);
-        System.out.println("The test passed: both values are equal");
     }
 
     @Test
@@ -18,8 +17,6 @@ public class AssertTest {
 
         assertThat(day).isNotEqualTo(day1).
                 withFailMessage("The test must pass, since the values are different");
-        System.out.println("The test passed: both values are not equal");
-
     }
     @Test
     public void integerEqualityAssertion_passes_whenValuesAreEqual(){
@@ -27,7 +24,6 @@ public class AssertTest {
         int summer1 = 10;
 
         assertThat(summer).isEqualTo(summer1);
-        System.out.println("The test passed: both values are equal");
     }
     @Test
     public void integerInequalityAssertion_passes_whenValuesAreNotEqual(){
@@ -36,7 +32,5 @@ public class AssertTest {
 
         assertThat(winter).isNotEqualTo(winter1).
                 withFailMessage("the test must fail, since they are different");
-        System.out.println("The test passed: both values are not equal");
-
     }
 }

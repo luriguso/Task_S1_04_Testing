@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,44 +29,36 @@ class LibraryTest {
         library.addBook(new Book("The Book 1 test"));
         assertEquals(4, library.recoveryBooks().size(), "The library should contain 4 books after adding a new one");
 
-        boolean found = false;
-        for (Book book : library.recoveryBooks()) {
-            if (book.getName().equalsIgnoreCase("The Book 1 test")) {
-                found = true;
-                break;
-            }
-        }
+        boolean found = library.recoveryBooks().stream()
+                .anyMatch(book -> book.getName().equalsIgnoreCase("The Book 1 test"));
+
         assertTrue(found, "The book 'The Book 1 test' should be in the collection");
     }
 
     @Test
     void shouldReturnCorrectBook_whenGettingBookByIndex() {
         Book bookIndex = library.getBookByIndex(1);
-        boolean found = false;
-        if(bookIndex.getName().equalsIgnoreCase("The Book 2")) {
-            found = true;
-        }
-        assertTrue(found, "The book 'The Book 2' should be in the collection in the position 1");
+
+        assertEquals("The Book 2", bookIndex.getName(), "The book at position 1 should be 'The Book 2'");
     }
 
     @Test
     void shouldNotContainDuplicateBooks_whenBooksAreAdded(){
-        boolean isDuplicate = false;
-        for (int i = 0; i<library.recoveryBooks().size();i++){
-            for (int j = i+1;j<library.recoveryBooks().size();j++){
-                if(library.getBookByIndex(i).getName().equalsIgnoreCase(library.getBookByIndex(j).getName())){
-                    isDuplicate = true;
-                }
-            }
-        }
-        assertFalse(isDuplicate, "The book 'The Book test duplicated' should not be in the collection");
+        List<String> bookNames = library.recoveryBooks().stream()
+                .map(Book::getName)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        long distinctCount = bookNames.stream().distinct().count();
+
+        assertEquals(distinctCount, bookNames.size(), "The collection should not contain duplicate books");
     }
+
     @Test
     void shouldReturnCorrectBookByIndex_whenIndexIsValid() {
         Book expectedBook = new Book("The Book 2");
         Book recoveredBook = library.getBookByIndex(1);
         assertEquals(expectedBook.getName(), recoveredBook.getName(), "The book expected is: " + expectedBook.getName() + " but was: " + recoveredBook.getName());
-
     }
 
     @Test
@@ -79,36 +72,28 @@ class LibraryTest {
     @Test
     void shouldRemoveBookSuccessfully_whenBookExists() {
         int sizeInitial = library.recoveryBooks().size();
-        boolean isReduced = false;
 
         library.removeBook("The Book 1");
-        if(library.recoveryBooks().size()<sizeInitial){
-            isReduced = true;
-        }
 
-        assertTrue(isReduced, "The list of books was not reduced");
+        assertTrue(library.recoveryBooks().size() < sizeInitial, "The list of books was not reduced");
     }
 
     @Test
-    void shouldSortBooksAlphabetically_whenBooksAreSorted(){
+    void shouldSortBooksAlphabetically_whenBooksAreSorted() {
         library.addBook(new Book("The Book Z"));
         library.addBook(new Book("The Book A"));
 
-        Collections.sort(library.recoveryBooks(), new Comparator<Book>() {
+        List<Book> actualBooks = library.recoveryBooks();
+
+        List<Book> expectedBooks = new ArrayList<>(actualBooks);
+        Collections.sort(expectedBooks, new Comparator<Book>() {
             @Override
             public int compare(Book b1, Book b2) {
                 return b1.getName().compareTo(b2.getName());
             }
         });
 
-        List<Book> sorted = new ArrayList<>(library.recoveryBooks());
-        Collections.sort(sorted, new Comparator<Book>() {
-            @Override
-            public int compare(Book b1, Book b2) {
-                return b1.getName().compareTo(b2.getName());
-            }
-        });
-
-        assertEquals(sorted, library.recoveryBooks(), "The list of books should be arranged alphabetically.");
+        assertIterableEquals(expectedBooks, actualBooks, "The list of books should be arranged alphabetically.");
     }
+
 }

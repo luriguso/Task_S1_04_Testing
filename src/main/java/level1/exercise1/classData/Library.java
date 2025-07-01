@@ -1,8 +1,6 @@
 package level1.exercise1.classData;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Library {
     private List<Book> books;
@@ -12,7 +10,13 @@ public class Library {
     }
 
     public void addBook(Book book) {
-        this.books.add(book);
+        books.add(book);
+        Collections.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book b1, Book b2) {
+                return b1.getName().compareTo(b2.getName());
+            }
+        });
     }
 
     public List<Book> recoveryBooks(){
